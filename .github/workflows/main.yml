@@ -5,11 +5,13 @@ on:
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
-    container:
-      image: datadog/dogstatsd:latest
-      env:
-        DD_API_KEY: ${{secrets.DD_API_KEY}}
-      options: --cgroupns host --pid host
+#     container:
+#       image: datadog/dogstatsd:latest
+#       env:
+#         DD_API_KEY: ${{secrets.DD_API_KEY}}
+#       options: --cgroupns host --pid host
     steps:
       - name: ECHO
-        run: echo hello
+        run: |
+            echo `pwd`
+            echo `ls -la`
