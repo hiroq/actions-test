@@ -5,16 +5,13 @@ on:
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
-    container:
-      image: datadog/dogstatsd:latest
-      env:
-        DD_API_KEY: ${{secrets.DD_API_KEY}}
-      options: --cgroupns host --pid host
+#     container:
+#       image: datadog/dogstatsd:latest
+#       env:
+#         DD_API_KEY: ${{secrets.DD_API_KEY}}
+#       options: --cgroupns host --pid host
     steps:
       - uses: actions/checkout@v3
       - name: ECHO
         run: |
-            apk update
-            apk add --no-cache python3 py3-pip 
-            pip3 install -r requirements.txt -t .
-            python3 main.py
+            echo `python --version`
