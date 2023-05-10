@@ -15,8 +15,8 @@ jobs:
       - name: ECHO
         run: |
             apk update
-            apk add --no-cache python
-            echo `python --version`            
+            apk add --no-cache python3
+            echo `python3 --version`            
 #            python3 -m pip install --upgrade pip
 #            pip install -r requirements.txt -t .
 #            python main.py
