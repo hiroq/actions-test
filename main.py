@@ -1,34 +1,40 @@
 """
-Create a tag configuration returns "Created" response
+Submit metrics returns "Payload accepted" response
 """
 
+from datetime import datetime
 from datadog_api_client import ApiClient, Configuration
 from datadog_api_client.v2.api.metrics_api import MetricsApi
-from datadog_api_client.v2.model.metric_tag_configuration_create_attributes import (
-    MetricTagConfigurationCreateAttributes,
-)
-from datadog_api_client.v2.model.metric_tag_configuration_create_data import MetricTagConfigurationCreateData
-from datadog_api_client.v2.model.metric_tag_configuration_create_request import MetricTagConfigurationCreateRequest
-from datadog_api_client.v2.model.metric_tag_configuration_metric_types import MetricTagConfigurationMetricTypes
-from datadog_api_client.v2.model.metric_tag_configuration_type import MetricTagConfigurationType
+from datadog_api_client.v2.model.metric_intake_type import MetricIntakeType
+from datadog_api_client.v2.model.metric_payload import MetricPayload
+from datadog_api_client.v2.model.metric_point import MetricPoint
+from datadog_api_client.v2.model.metric_resource import MetricResource
+from datadog_api_client.v2.model.metric_series import MetricSeries
 
-body = MetricTagConfigurationCreateRequest(
-    data=MetricTagConfigurationCreateData(
-        type=MetricTagConfigurationType.MANAGE_TAGS,
-        id="ExampleMetric",
-        attributes=MetricTagConfigurationCreateAttributes(
-            tags=[
-                "app",
-                "datacenter",
+body = MetricPayload(
+    series=[
+        MetricSeries(
+            metric="example.system.load.1",
+            type=MetricIntakeType.UNSPECIFIED,
+            points=[
+                MetricPoint(
+                    timestamp=int(datetime.now().timestamp()),
+                    value=0.7,
+                ),
             ],
-            metric_type=MetricTagConfigurationMetricTypes.GAUGE,
+            resources=[
+                MetricResource(
+                    name="dummyhost",
+                    type="host",
+                ),
+            ],
         ),
-    ),
+    ],
 )
 
 configuration = Configuration()
 with ApiClient(configuration) as api_client:
     api_instance = MetricsApi(api_client)
-    response = api_instance.create_tag_configuration(metric_name="ExampleMetric", body=body)
+    response = api_instance.submit_metrics(body=body)
 
     print(response)
