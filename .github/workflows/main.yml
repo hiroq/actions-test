@@ -5,6 +5,10 @@ on:
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
+    env:
+      DD_SITE: datadoghq.com
+      DD_API_KEY: ${{secrets.DD_API_KEY}}
+      DD_APP_KEY: ${{secrets.DD_APP_KEY}}
     steps:
       - uses: actions/checkout@v3
       - name: ECHO
