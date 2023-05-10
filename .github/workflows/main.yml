@@ -14,8 +14,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: ECHO
         run: |
-            python3 -m pip install --upgrade pip
-
-
+             apt update
+             apt install python pip
+             echo `python --version`
+#            python3 -m pip install --upgrade pip
 #            pip install -r requirements.txt -t .
 #            python main.py
