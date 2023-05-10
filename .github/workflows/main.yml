@@ -15,3 +15,4 @@ jobs:
       - name: ECHO
         run: |
             echo `python --version`
+            echo `pip --version`
