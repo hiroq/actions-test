@@ -13,10 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: ECHO
-        run: |
-             apt-get update
-             apt-get install python pip
-             echo `python --version`
+        run: echo `ls /etc/*-release`
 #            python3 -m pip install --upgrade pip
 #            pip install -r requirements.txt -t .
 #            python main.py
